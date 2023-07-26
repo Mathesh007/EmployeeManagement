@@ -85,7 +85,6 @@ public:
                 cin.ignore();
                 getline(cin,description);
                 cout << "Enter Course Instructor: ";
-                cin.ignore();
                 getline(cin,instructor);
                 cout << "Enter Total Tasks: ";
                 cin >> totalTasks;
@@ -101,7 +100,6 @@ public:
                 cin.ignore();
                 getline(cin,position);
                 cout << "Enter Employee Department: ";
-                cin.ignore();
                 getline(cin,department);
                 employees.push_back(make_unique<Employee::Employee>(name, position, department));
                 break;
