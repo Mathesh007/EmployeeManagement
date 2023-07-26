@@ -4,16 +4,20 @@
 #include "enrollment.h"
 #include "enrollmentManager.h"
 #include "report.h"
+#include "logger.h"
 
 using namespace std;
 
-
+Logger::Logger *Logger::Logger::instance=NULL;
 
 class TrainingManager
 {
+private:
+    Logger::Logger *logger = logger->getInstance();
 public:
     void viewAllEmployeeDetails( vector<unique_ptr<Employee::Employee>> &employees)
     {
+        logger->updateLogs((string)"Admin Viewed Employee Details");
         cout << "\n===== Employee Details =====" << endl;
         for ( auto &emp : employees)
         {
@@ -26,6 +30,7 @@ public:
 
     void viewAllCourseDetails( vector<unique_ptr<Course::Course>> &courses)
     {
+        logger->updateLogs((string)"Admin Viewed Course Details");
         cout << "\n===== Course Details =====" << endl;
         for ( auto &crs : courses)
         {
@@ -38,6 +43,7 @@ public:
 
     void viewEnrollmentDetails(map<int, vector<Enrollment::Enrollment>> &enrollments, vector<unique_ptr<Employee::Employee>> &employees, int empId)
     {
+        logger->updateLogs((string)"Admin Viewed Enrollment Details");
         cout << "\n===== Enrollment Details =====" << endl;
         cout << "Employee: " << (*employees[empId]).getName() << endl;
         map<int, vector<Enrollment::Enrollment>>::iterator itr;
@@ -60,6 +66,7 @@ public:
 
     void employerView(vector<unique_ptr<Course::Course>> &courses, vector<unique_ptr<Employee::Employee>> &employees, map<int, vector<Enrollment::Enrollment>> &enrollments)
     {
+        logger->updateLogs((string)"Admin Logged In");
         int choice;
         while (true)
         {
@@ -79,6 +86,7 @@ public:
             {
             case 1:
             {
+                logger->updateLogs((string)"Admin Created Course");
                 string title, description, instructor;
                 int totalTasks;
                 cout << "Enter Course Title: ";
@@ -95,6 +103,7 @@ public:
             }
             case 2:
             {
+                logger->updateLogs((string)"Admin Enrolled Employee");
                 string name, position, department;
                 cout << "Enter Employee Name: ";
                 cin >> name;
@@ -113,6 +122,7 @@ public:
                 cin >> employeeIndex;
                 cout << "Enter the index of the course: ";
                 cin >> courseIndex;
+                logger->updateLogs((string)"Admin Enrolled "+employeeIndex+" to course "+courseIndex);
 
                 if (employeeIndex < 0 || employeeIndex >= employees.size() || courseIndex < 0 || courseIndex >= courses.size())
                 {
@@ -153,6 +163,7 @@ public:
             }
             case 7:
                 {
+                    logger->updateLogs((string)"Admin Viewed Training Report");
                     cout<<"\nTraining Report"<<endl;
                     cout<<"---------------"<<endl;
                     for(int empId=0; empId<employees.size(); empId++)
@@ -168,6 +179,7 @@ public:
                     break;
                 }
             case 8:
+                logger->updateLogs((string)"Admin Logged Out");
                 cout << "Exiting the program.\n\n";
                 return;
             default:
@@ -182,6 +194,7 @@ public:
         cout<<"\nEnter Employee Id: ";
         cin>>empId;
         Employee::Employee currentEmployee = *employees[empId];
+        logger->updateLogs((string)"Employee "+empId+" logged in");
         int choice;
         while(true)
         {
@@ -201,6 +214,7 @@ public:
                 }
             case 2:
                 {
+                    logger->updateLogs((string)"Employee "+empId+" updated progress");
                     int courseId;
                     cout<<"\nEnter Course ID to update progress:";
                     cin>>courseId;
@@ -224,6 +238,7 @@ public:
                 }
             case 3:
                 {
+                    logger->updateLogs((string)"Employee "+empId+" viewed his report");
                     cout<<"\nTraining Report"<<endl;
                     cout<<"---------------"<<endl;
                     cout<<empId+1<<": "<<currentEmployee.getName()<<endl;
@@ -236,6 +251,7 @@ public:
                 }
             case 4:
                 {
+                    logger->updateLogs((string)"Employee "+empId+" logged out");
                     cout<<endl;
                     return;
                 }
