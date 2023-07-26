@@ -113,8 +113,8 @@ void employerView(vector<unique_ptr<Course::Course>> &courses, vector<unique_ptr
             }
             else
             {
-                Course::Course curCourse = Course::Course(*courses[courseIndex]);
-                Enrollment::Enrollment enrol = Enrollment::Enrollment(*employees[employeeIndex], curCourse);
+                Course::Course* curCourse = (*courses[courseIndex]).Course::getCopy(*courses[courseIndex]);
+                Enrollment::Enrollment enrol = Enrollment::Enrollment(*employees[employeeIndex], *curCourse);
 
                 enrollments[employeeIndex].push_back(enrol);
             }

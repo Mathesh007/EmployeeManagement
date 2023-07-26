@@ -16,19 +16,20 @@ public:
     {
         completedTasks=0;
     }
-    Course(Course *course)
-    {
-        title=(*course).getTitle();
-        description=(*course).getDescription();
-        instructor=(*course).getInstructor();
-        totalTasks=(*course).getTotalTasks();
-        completedTasks=0;
-    }
+
     string &getTitle() { return title; }
     string &getDescription() { return description; }
     string &getInstructor() { return instructor; }
     int getTotalTasks() { return totalTasks; }
     int getCompletedTasks() { return completedTasks; }
+
+    Course* getCopy(Course &other)
+    {
+        Course* newCourse = new Course(other.title,other.description,other.instructor,other.totalTasks);
+        return newCourse;
+    }
+
+    ~Course(){}
 
     void updateTasks()
     {
@@ -61,5 +62,6 @@ public:
             }
         }
     }
+
 };
 }
