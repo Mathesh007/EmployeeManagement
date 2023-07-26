@@ -3,6 +3,7 @@
 #include "course.h"
 #include "enrollment.h"
 #include "enrollmentManager.h"
+#include "report.h"
 
 using namespace std;
 
@@ -66,10 +67,11 @@ public:
             cout << "1. Enter Course details\n";
             cout << "2. Enter Employee details\n";
             cout << "3. Enroll Employee in a Course\n";
-            cout << "4. view All Employee Details\n";
-            cout << "5. view All Course Details\n";
-            cout << "6. view Enrollment Details\n";
-            cout << "7. Exit\n";
+            cout << "4. View All Employee Details\n";
+            cout << "5. View All Course Details\n";
+            cout << "6. View Enrollment Details\n";
+            cout << "7. Track Progress for all employees\n";
+            cout << "8. Exit\n";
             cout << "Enter your choice: ";
             cin >> choice;
 
@@ -150,7 +152,23 @@ public:
                 break;
             }
             case 7:
-                cout << "Exiting the program.\n";
+                {
+                    cout<<"\nTraining Report"<<endl;
+                    cout<<"---------------"<<endl;
+                    for(int empId=0; empId<employees.size(); empId++)
+                    {
+                        Employee::Employee currentEmployee = *employees[empId];
+                        cout<<endl<<empId+1<<": "<<currentEmployee.getName()<<endl;
+                        Report::Report report;
+                        for(auto enrollment : enrollments[empId])
+                        {
+                            report.getReport(enrollment.getCourse());
+                        }
+                    }
+                    break;
+                }
+            case 8:
+                cout << "Exiting the program.\n\n";
                 return;
             default:
                 cout << "Invalid choice. Please try again.\n";
@@ -170,7 +188,8 @@ public:
             cout << "\nChoose an option:\n";
             cout << "1. View Enrolled Courses\n";
             cout << "2. Update Progress\n";
-            cout << "3. Exit\n";
+            cout << "3. View progress\n";
+            cout << "4. Exit\n";
             cout << "Enter your choice: ";
             cin >> choice;
             switch(choice)
@@ -204,6 +223,18 @@ public:
                     break;
                 }
             case 3:
+                {
+                    cout<<"\nTraining Report"<<endl;
+                    cout<<"---------------"<<endl;
+                    cout<<empId+1<<": "<<currentEmployee.getName()<<endl;
+                    Report::Report report;
+                    for(auto enrollment : enrollments[empId])
+                    {
+                        report.getReport(enrollment.getCourse());
+                    }
+                    break;
+                }
+            case 4:
                 {
                     cout<<endl;
                     return;
