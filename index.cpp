@@ -215,7 +215,7 @@ public:
             {
             case 1:
                 {
-                    logger->updateLogs((string)"Employee"+ to_string(empId) +"Viewed Enrollment Details");
+                    logger->updateLogs((string)"Employee "+ to_string(empId) +" Viewed Enrollment Details");
                     viewEnrollmentDetails(enrollments, employees ,empId);
                     break;
                 }
@@ -315,6 +315,7 @@ public:
 
 int main()
 {
+    cout<<"===============Employee Training Manager===============\n";
     TrainingManager index;
     index.TrainingManage();
     return 0;
