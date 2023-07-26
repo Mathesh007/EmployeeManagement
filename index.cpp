@@ -221,25 +221,32 @@ public:
                 }
             case 2:
                 {
-                    logger->updateLogs((string)"Employee "+to_string(empId)+" updated progress");
-                    int courseId;
-                    cout<<"\nEnter Course ID to update progress:";
-                    cin>>courseId;
-                    map<int, vector<Enrollment::Enrollment>>::iterator itr;
-                    itr=enrollments.find(empId);
-                    if(itr==enrollments.end())
-                    {
-                        cout<<"No enrollment found\n";
-                    }
-                    else
-                    {
-                        for(auto obj : enrollments[empId])
+                    try{
+                        logger->updateLogs((string)"Employee "+to_string(empId)+" updated progress");
+                        int courseId;
+                        cout<<"\nEnter Course ID to update progress:";
+                        cin>>courseId;
+                        map<int, vector<Enrollment::Enrollment>>::iterator itr;
+                        itr=enrollments.find(empId);
+                        if(itr==enrollments.end())
                         {
-                            if((obj.getCourse()).getTitle()==(*courses[courseId]).getTitle())
+                            cout<<"No enrollment found\n";
+                        }
+                        else
+                        {
+                            for(auto obj : enrollments[empId])
                             {
-                                (obj.getCourse()).updateTasks();
+                                if((obj.getCourse()).getTitle()==(*courses[courseId]).getTitle())
+                                {
+                                    (obj.getCourse()).updateTasks();
+                                }
                             }
                         }
+                    }
+                    catch(...)
+                    {
+                        cout<<"Some Error occured while updating progress!\n";
+                        return;
                     }
                     break;
                 }

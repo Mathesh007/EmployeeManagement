@@ -17,6 +17,15 @@ public:
         completedTasks=0;
     }
 
+    Course(Course &course)
+    {
+        title=course.title;
+        description=course.description;
+        instructor=course.instructor;
+        totalTasks=course.totalTasks;
+        completedTasks=0;
+    }
+
     string &getTitle() { return title; }
     string &getDescription() { return description; }
     string &getInstructor() { return instructor; }
